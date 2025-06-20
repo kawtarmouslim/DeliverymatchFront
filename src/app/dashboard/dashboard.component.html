@@ -1,0 +1,158 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidebar -->
+  <mat-sidenav #sidenav mode="side" opened class="sidenav" fixedInViewport>
+    <mat-toolbar class="sidenav-toolbar">
+      <mat-icon>local_shipping</mat-icon>
+      <span class="ml-3 font-semibold">DeliveryMatch</span>
+    </mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="#dashboard" class="nav-item">
+        <mat-icon class="mr-2">dashboard</mat-icon>Tableau de bord
+      </a>
+      <a mat-list-item routerLink="#users" class="nav-item">
+        <mat-icon class="mr-2">people</mat-icon>Utilisateurs
+      </a>
+    <a mat-list-item routerLink="/annonce" class="nav-item">
+  <mat-icon class="mr-2">announcement</mat-icon>Annonces
+</a>
+      <a mat-list-item routerLink="#requests" class="nav-item">
+        <mat-icon class="mr-2">request_page</mat-icon>Demandes
+      </a>
+      <a mat-list-item routerLink="#stats" class="nav-item">
+        <mat-icon class="mr-2">bar_chart</mat-icon>Statistiques
+      </a>
+      <a mat-list-item (click)="logout()" class="nav-item">
+        <mat-icon class="mr-2">logout</mat-icon>Déconnexion
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Main Content -->
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="sidenav.toggle()" class="menu-button">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="font-semibold">Tableau de bord Administrateur</span>
+      <span class="spacer"></span>
+      <div class="text-sm">Dernière mise à jour : 19/06/2025 11:30</div>
+    </mat-toolbar>
+
+    <div class="content p-6">
+      <!-- Overview Cards -->
+      <div class="overview-cards">
+        <mat-card class="overview-card">
+          <mat-card-title class="text-sm font-medium">Utilisateurs Actifs</mat-card-title>
+          <mat-card-content>
+            <p class="text-2xl font-bold text-teal">1,245</p>
+            <p class="text-xs text-green-600">+12% ce mois</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="overview-card">
+          <mat-card-title class="text-sm font-medium">Annonces Publiées</mat-card-title>
+          <mat-card-content>
+            <p class="text-2xl font-bold text-teal">342</p>
+            <p class="text-xs text-green-600">+8% ce mois</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="overview-card">
+          <mat-card-title class="text-sm font-medium">Demandes En Attente</mat-card-title>
+          <mat-card-content>
+            <p class="text-2xl font-bold text-teal">89</p>
+            <p class="text-xs text-red-600">-5% ce mois</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="overview-card">
+          <mat-card-title class="text-sm font-medium">Taux de Satisfaction</mat-card-title>
+          <mat-card-content>
+            <p class="text-2xl font-bold text-teal">92%</p>
+            <p class="text-xs text-green-600">+3% ce mois</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Users Management -->
+      <section id="users" class="mb-6">
+        <h2 class="text-lg font-semibold mb-3">Gestion des Utilisateurs</h2>
+        <mat-card class="table-card">
+          <table mat-table [dataSource]="usersDataSource" class="w-full">
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Nom</th>
+              <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef>Email</th>
+              <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef>Statut</th>
+              <td mat-cell *matCellDef="let user">
+                <span class="status-chip" [ngClass]="user.status === 'Vérifié' ? 'status-verified' : 'status-pending'">
+                  {{ user.status }}
+                </span>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let user">
+                <button mat-button color="primary" (click)="editUser(user)">Modifier</button>
+                <button mat-button color="warn" (click)="suspendUser(user)">Suspendre</button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="usersDisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: usersDisplayedColumns;" class="table-row"></tr>
+          </table>
+        </mat-card>
+      </section>
+
+      <!-- Announcements Management -->
+      <section id="announcements" class="mb-6">
+        <h2 class="text-lg font-semibold mb-3">Gestion des Annonces</h2>
+        <mat-card class="table-card">
+          <table mat-table [dataSource]="announcementsDataSource" class="w-full">
+            <ng-container matColumnDef="driver">
+              <th mat-header-cell *matHeaderCellDef>Conducteur</th>
+              <td mat-cell *matCellDef="let announcement">{{ announcement.driver }}</td>
+            </ng-container>
+            <ng-container matColumnDef="route">
+              <th mat-header-cell *matHeaderCellDef>Trajet</th>
+              <td mat-cell *matCellDef="let announcement">{{ announcement.route }}</td>
+            </ng-container>
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef>Date</th>
+              <td mat-cell *matCellDef="let announcement">{{ announcement.date }}</td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let announcement">
+                <button mat-button color="primary" (click)="editAnnouncement(announcement)">Modifier</button>
+                <button mat-button color="warn" (click)="deleteAnnouncement(announcement)">Supprimer</button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="announcementsDisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: announcementsDisplayedColumns;" class="table-row"></tr>
+          </table>
+        </mat-card>
+      </section>
+
+      <!-- Statistics with Chart.js -->
+      <section id="stats">
+        <h2 class="text-lg font-semibold mb-3">Statistiques</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <mat-card class="chart-card">
+            <mat-card-title>Annonces Publiées (6 Mois)</mat-card-title>
+            <mat-card-content>
+              <canvas id="announcementsChart"></canvas>
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="chart-card">
+            <mat-card-title>Taux d'Acceptation des Demandes</mat-card-title>
+            <mat-card-content>
+              <canvas id="acceptanceChart"></canvas>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </section>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

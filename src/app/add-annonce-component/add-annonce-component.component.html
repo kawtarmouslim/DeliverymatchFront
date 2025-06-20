@@ -1,0 +1,49 @@
+<div class="modal fade" id="addAnnonceModal" tabindex="-1" aria-labelledby="addAnnonceModalLabel" aria-hidden="true" #addModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addAnnonceModalLabel">Ajouter une Annonce</h5>
+        <button type="button" class="btn-close" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form >
+          <div class="mb-3">
+            <label for="idAnnonce" class="form-label">ID Annonce</label>
+            <input type="number" class="form-control" id="idAnnonce" name="idAnnonce" [(ngModel)]="annonce.idAnnonce" required>
+          </div>
+          <div class="mb-3">
+            <label for="depart" class="form-label">Départ</label>
+            <input type="text" class="form-control" id="depart" name="depart" [(ngModel)]="annonce.depart" required>
+          </div>
+          <div class="mb-3">
+            <label for="etape" class="form-label">Étape</label>
+            <input type="text" class="form-control" id="etape" name="etape" [(ngModel)]="annonce.etape" required>
+          </div>
+          <div class="mb-3">
+            <label for="destination" class="form-label">Destination</label>
+            <input type="text" class="form-control" id="destination" name="destination" [(ngModel)]="annonce.destination" required>
+          </div>
+          <div class="mb-3">
+            <label for="capacite" class="form-label">Capacité</label>
+            <input type="number" class="form-control" id="capacite" name="capacite" [(ngModel)]="annonce.capacite" required>
+          </div>
+          <div class="mb-3">
+            <label for="dimension" class="form-label">Dimension</label>
+            <input type="text" class="form-control" id="dimension" name="dimension" [(ngModel)]="annonce.dimension" required>
+          </div>
+          <div class="mb-3">
+            <label for="typeColis" class="form-label">Type de Colis</label>
+            <input type="text" class="form-control" id="typeColis" name="typeColis" [(ngModel)]="annonce.typeColis" required>
+          </div>
+          <div class="mb-3">
+            <label for="conducteurId" class="form-label">ID Conducteur</label>
+            <input type="number" class="form-control" id="conducteurId" name="conducteurId" [(ngModel)]="annonce.conducteurId" required>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" >Ajouter</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
