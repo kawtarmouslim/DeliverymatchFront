@@ -6,5 +6,4 @@ export interface Annonce {
   capacite: number;
   dimension: number;
   typeColis: string;
-  conducteurId?: number;
 }
